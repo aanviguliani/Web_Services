@@ -163,30 +163,29 @@
 
 				*/
 				var week_names = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']; //This is a helper array to help convert the day of the week [0-7] to a named value [Sunday - Saturday
-        var forecast = document.getElementById('6_day_forecast')
+         var forecast = document.getElementById('6_day_forecast');
+        var card = '<div class="col-2"><div class="card"><img class="card-img-top" src="'
+        var thing = '" alt="Card image caption"><div class="card-body"><h5 class="card-title">';
+       var card2 = '<!-- List Day of the Week Here --><p class="card-text">'
+       var card3 = '</div></div></div>';
+       var date = new Date(data.currently.time*1000);
+       var day = date.getDay();
         for(var i = 0; i < 6; i++){
-          var outerdiv = document.createElement('div');
-          outerdiv.setAttribute('class','col-2');
-          var div_card = document.createElement('div');
-          var image = document.createElement('img');
-          image.setAttribute("class","card-img-top");
+          if(day == 6){
+            day = 0;
+          } else {
+            day += 1;
+          }
+          var dcard = card+ "./img/" + data.daily.data[day].icon + ".png" + thing + week_names[day];
+          dcard = dcard+card2;
+          dcard = dcard+ "High:" + data.daily.data[day].apparentTemperatureHigh;
+          dcard = dcard + "Low:" + data.daily.data[day].apparentTemperatureLow;
+          dcard = dcard+ card3;
+       
           var path = "./img/" + data.daily.data[i].icon + ".png";
-          image.setAttribute("src",path);
-          var div_body = document.createElement('div');
-          div_body.setAttribute("class",'card-body');
-          var title = document.createElement('h5');
-          title.setAttribute('class','card-title');
-          title.innerHTML = "title for day " + week_names[i];
-          var p_tag = document.createElement('p');
-          p_tag.innerHTML = week_names[i];
-          p_tag.setAttribute('class','card-text');
-          title.appendChild(p_tag);
-          div_body.appendChild(title);
-          image.appendChild(div_body);
-          div_card.appendChild(image);
-          outerdiv.appendChild(div_card);
-          forecast.appendChild(outerdiv);
-          div_body.appendChild(p_tag);
+          
+          document.getElementById("6_day_forecast").innerHTML += dcard;
+        }y.appendChild(p_tag);
         }
       })
 			})
